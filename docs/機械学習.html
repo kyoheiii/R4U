@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4.11" data-path="機械学習.html"><a href="機械学習.html#精度を見るための混合行列-1"><i class="fa fa-check"></i><b>7.4.11</b> 精度を見るための混合行列</a></li>
 <li class="chapter" data-level="7.4.12" data-path="機械学習.html"><a href="機械学習.html#モデルの変数の重要度"><i class="fa fa-check"></i><b>7.4.12</b> モデルの変数の重要度</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="機械学習.html"><a href="機械学習.html#勾配ブースティングとは"><i class="fa fa-check"></i><b>7.5</b> 勾配ブースティングとは</a>
+<li class="chapter" data-level="7.5" data-path="機械学習.html"><a href="機械学習.html#勾配ブースティング"><i class="fa fa-check"></i><b>7.5</b> 勾配ブースティング</a>
 <ul>
 <li class="chapter" data-level="7.5.1" data-path="機械学習.html"><a href="機械学習.html#フレームワーク"><i class="fa fa-check"></i><b>7.5.1</b> フレームワーク</a></li>
 <li class="chapter" data-level="7.5.2" data-path="機械学習.html"><a href="機械学習.html#今回使用するパッケージ-1"><i class="fa fa-check"></i><b>7.5.2</b> 今回使用するパッケージ</a></li>
@@ -476,8 +476,8 @@ g(y) = \beta_0x_0 + \beta_1x_1 + \cdots + \beta_nx_n
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="機械学習.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(model_randm)</span></code></pre></div>
 </div>
 </div>
-<div id="勾配ブースティングとは" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> 勾配ブースティングとは</h2>
+<div id="勾配ブースティング" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> 勾配ブースティング</h2>
 <p>勾配ブースティングは決定木（もしくは別の弱分類機）を、過去の失敗を活かすように複数作成していくモデル。先に学習したモデルで分類に失敗した訓練データを積極的に分類できるよう、後段のモデルを修正していく。ランダムフォレストと違い、決定木が直列に作られるので並列計算できず、計算量が大きくなる。</p>
 <div id="フレームワーク" class="section level3" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> フレームワーク</h3>
