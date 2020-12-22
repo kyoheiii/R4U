@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 機械学習 | A minimal tidyverse and ML book for U!!!</title>
+  <meta name="description" content="Chapter 7 機械学習 | A minimal tidyverse and ML book for U!!!" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 機械学習 | A minimal tidyverse and ML book for U!!!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 機械学習 | A minimal tidyverse and ML book for U!!!" />
+  
+  
+  
+
+<meta name="author" content="Kyohei ITO" />
+
+
+<meta name="date" content="2020-12-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="データの可視化.html"/>
+
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> まえがき</a></li>
+<li class="chapter" data-level="2" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html"><i class="fa fa-check"></i><b>2</b> パッケージのインストール</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#パッケージとは"><i class="fa fa-check"></i><b>2.1</b> パッケージとは</a></li>
+<li class="chapter" data-level="2.2" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#インストール方法"><i class="fa fa-check"></i><b>2.2</b> インストール方法</a></li>
+<li class="chapter" data-level="2.3" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#パッケージの読み込み"><i class="fa fa-check"></i><b>2.3</b> パッケージの読み込み</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>3</b> tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tidyverse.html"><a href="tidyverse.html#tidyverseとは"><i class="fa fa-check"></i><b>3.1</b> tidyverseとは</a></li>
+<li class="chapter" data-level="3.2" data-path="tidyverse.html"><a href="tidyverse.html#インストールと読み込み"><i class="fa fa-check"></i><b>3.2</b> インストールと読み込み</a></li>
+<li class="chapter" data-level="3.3" data-path="tidyverse.html"><a href="tidyverse.html#baserとtidyverse"><i class="fa fa-check"></i><b>3.3</b> baseRとtidyverse</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataの読み込み.html"><a href="dataの読み込み.html"><i class="fa fa-check"></i><b>4</b> Dataの読み込み</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dataの読み込み.html"><a href="dataの読み込み.html#excelファイルの読み込みパッケージインストール"><i class="fa fa-check"></i><b>4.1</b> EXCELファイルの読み込み（パッケージインストール）</a></li>
+<li class="chapter" data-level="4.2" data-path="dataの読み込み.html"><a href="dataの読み込み.html#readxlのインストールと読み込み"><i class="fa fa-check"></i><b>4.2</b> readxlのインストールと読み込み</a></li>
+<li class="chapter" data-level="4.3" data-path="dataの読み込み.html"><a href="dataの読み込み.html#excelファイルの読み込み実行"><i class="fa fa-check"></i><b>4.3</b> EXCELファイルの読み込み(実行)</a></li>
+<li class="chapter" data-level="4.4" data-path="dataの読み込み.html"><a href="dataの読み込み.html#pathとは"><i class="fa fa-check"></i><b>4.4</b> pathとは</a></li>
+<li class="chapter" data-level="4.5" data-path="dataの読み込み.html"><a href="dataの読み込み.html#csvtsvファイルの読み込み"><i class="fa fa-check"></i><b>4.5</b> CSV,TSVファイルの読み込み</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="データの前処理.html"><a href="データの前処理.html"><i class="fa fa-check"></i><b>5</b> データの前処理</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="データの前処理.html"><a href="データの前処理.html#dplyrtidyrによるデータ前処理"><i class="fa fa-check"></i><b>5.1</b> dplyr/tidyrによるデータ前処理</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="データの前処理.html"><a href="データの前処理.html#tidyrでできる事"><i class="fa fa-check"></i><b>5.1.1</b> tidyrでできる事</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="データの前処理.html"><a href="データの前処理.html#横長データの変形"><i class="fa fa-check"></i><b>5.2</b> 横長データの変形</a></li>
+<li class="chapter" data-level="5.3" data-path="データの前処理.html"><a href="データの前処理.html#縦長データの変形"><i class="fa fa-check"></i><b>5.3</b> 縦長データの変形</a></li>
+<li class="chapter" data-level="5.4" data-path="データの前処理.html"><a href="データの前処理.html#dplyrでできる事"><i class="fa fa-check"></i><b>5.4</b> dplyrでできる事</a></li>
+<li class="chapter" data-level="5.5" data-path="データの前処理.html"><a href="データの前処理.html#列の抽出"><i class="fa fa-check"></i><b>5.5</b> 列の抽出</a></li>
+<li class="chapter" data-level="5.6" data-path="データの前処理.html"><a href="データの前処理.html#列の削除"><i class="fa fa-check"></i><b>5.6</b> 列の削除</a></li>
+<li class="chapter" data-level="5.7" data-path="データの前処理.html"><a href="データの前処理.html#行の抽出"><i class="fa fa-check"></i><b>5.7</b> 行の抽出</a></li>
+<li class="chapter" data-level="5.8" data-path="データの前処理.html"><a href="データの前処理.html#演算子による処理のパイプライン化"><i class="fa fa-check"></i><b>5.8</b> %&gt;%演算子による処理のパイプライン化</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="データの可視化.html"><a href="データの可視化.html"><i class="fa fa-check"></i><b>6</b> データの可視化</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="データの可視化.html"><a href="データの可視化.html#なぜデータを可視化するのか"><i class="fa fa-check"></i><b>6.1</b> なぜデータを可視化するのか</a></li>
+<li class="chapter" data-level="6.2" data-path="データの可視化.html"><a href="データの可視化.html#ggplot2とは"><i class="fa fa-check"></i><b>6.2</b> ggplot2とは</a></li>
+<li class="chapter" data-level="6.3" data-path="データの可視化.html"><a href="データの可視化.html#基本的な使い方"><i class="fa fa-check"></i><b>6.3</b> 基本的な使い方</a></li>
+<li class="chapter" data-level="6.4" data-path="データの可視化.html"><a href="データの可視化.html#データの指定"><i class="fa fa-check"></i><b>6.4</b> データの指定</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="機械学習.html"><a href="機械学習.html"><i class="fa fa-check"></i><b>7</b> 機械学習</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="機械学習.html"><a href="機械学習.html#教師あり学習回帰分析"><i class="fa fa-check"></i><b>7.1</b> 教師あり学習・回帰分析</a></li>
+<li class="chapter" data-level="7.2" data-path="機械学習.html"><a href="機械学習.html#回帰分析"><i class="fa fa-check"></i><b>7.2</b> 回帰分析</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="機械学習.html"><a href="機械学習.html#回帰分析の前提条件"><i class="fa fa-check"></i><b>7.2.1</b> 回帰分析の前提条件</a></li>
+<li class="chapter" data-level="7.2.2" data-path="機械学習.html"><a href="機械学習.html#今回使用するパッケージ"><i class="fa fa-check"></i><b>7.2.2</b> 今回使用するパッケージ</a></li>
+<li class="chapter" data-level="7.2.3" data-path="機械学習.html"><a href="機械学習.html#rコード回帰分析"><i class="fa fa-check"></i><b>7.2.3</b> Rコード:回帰分析</a></li>
+<li class="chapter" data-level="7.2.4" data-path="機械学習.html"><a href="機械学習.html#回帰分析の要約"><i class="fa fa-check"></i><b>7.2.4</b> 回帰分析の要約</a></li>
+<li class="chapter" data-level="7.2.5" data-path="機械学習.html"><a href="機械学習.html#モデルを用いた予測"><i class="fa fa-check"></i><b>7.2.5</b> モデルを用いた予測</a></li>
+<li class="chapter" data-level="7.2.6" data-path="機械学習.html"><a href="機械学習.html#逐次選択法ステップワイズ法"><i class="fa fa-check"></i><b>7.2.6</b> 逐次選択法（ステップワイズ法）</a></li>
+<li class="chapter" data-level="7.2.7" data-path="機械学習.html"><a href="機械学習.html#vif統計量を算出"><i class="fa fa-check"></i><b>7.2.7</b> VIF統計量を算出</a></li>
+<li class="chapter" data-level="7.2.8" data-path="機械学習.html"><a href="機械学習.html#正規性の確認"><i class="fa fa-check"></i><b>7.2.8</b> 正規性の確認</a></li>
+<li class="chapter" data-level="7.2.9" data-path="機械学習.html"><a href="機械学習.html#モデルの評価aic"><i class="fa fa-check"></i><b>7.2.9</b> モデルの評価（AIC）</a></li>
+<li class="chapter" data-level="7.2.10" data-path="機械学習.html"><a href="機械学習.html#モデルの評価msermse"><i class="fa fa-check"></i><b>7.2.10</b> モデルの評価（MSE,RMSE）</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="機械学習.html"><a href="機械学習.html#ロジスティック回帰"><i class="fa fa-check"></i><b>7.3</b> ロジスティック回帰</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="機械学習.html"><a href="機械学習.html#一般化線形モデルとは"><i class="fa fa-check"></i><b>7.3.1</b> 一般化線形モデルとは</a></li>
+<li class="chapter" data-level="7.3.2" data-path="機械学習.html"><a href="機械学習.html#リンク関数"><i class="fa fa-check"></i><b>7.3.2</b> リンク関数</a></li>
+<li class="chapter" data-level="7.3.3" data-path="機械学習.html"><a href="機械学習.html#多重共線性"><i class="fa fa-check"></i><b>7.3.3</b> 多重共線性</a></li>
+<li class="chapter" data-level="7.3.4" data-path="機械学習.html"><a href="機械学習.html#rコードロジスティック回帰"><i class="fa fa-check"></i><b>7.3.4</b> Rコード:ロジスティック回帰</a></li>
+<li class="chapter" data-level="7.3.5" data-path="機械学習.html"><a href="機械学習.html#モデルのあてはめ"><i class="fa fa-check"></i><b>7.3.5</b> モデルのあてはめ</a></li>
+<li class="chapter" data-level="7.3.6" data-path="機械学習.html"><a href="機械学習.html#欠損値の除去"><i class="fa fa-check"></i><b>7.3.6</b> 欠損値の除去</a></li>
+<li class="chapter" data-level="7.3.7" data-path="機械学習.html"><a href="機械学習.html#閾値しきいちの決定"><i class="fa fa-check"></i><b>7.3.7</b> 閾値（しきいち）の決定</a></li>
+<li class="chapter" data-level="7.3.8" data-path="機械学習.html"><a href="機械学習.html#モデルの評価"><i class="fa fa-check"></i><b>7.3.8</b> モデルの評価</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="機械学習.html"><a href="機械学習.html#決定木と応用手法"><i class="fa fa-check"></i><b>7.4</b> 決定木と応用手法</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="機械学習.html"><a href="機械学習.html#ランダムフォレスト"><i class="fa fa-check"></i><b>7.4.1</b> ランダムフォレスト</a></li>
+<li class="chapter" data-level="7.4.2" data-path="機械学習.html"><a href="機械学習.html#必要なパッケージ"><i class="fa fa-check"></i><b>7.4.2</b> 必要なパッケージ</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="機械学習.html"><a href="機械学習.html#今回使用するデータセット"><i class="fa fa-check"></i><b>7.5</b> 今回使用するデータセット</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="機械学習.html"><a href="機械学習.html#データの分割"><i class="fa fa-check"></i><b>7.5.1</b> データの分割</a></li>
+<li class="chapter" data-level="7.5.2" data-path="機械学習.html"><a href="機械学習.html#決定木のモデル作成"><i class="fa fa-check"></i><b>7.5.2</b> 決定木のモデル作成</a></li>
+<li class="chapter" data-level="7.5.3" data-path="機械学習.html"><a href="機械学習.html#決定木の可視化"><i class="fa fa-check"></i><b>7.5.3</b> 決定木の可視化</a></li>
+<li class="chapter" data-level="7.5.4" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-1"><i class="fa fa-check"></i><b>7.5.4</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.5.5" data-path="機械学習.html"><a href="機械学習.html#精度を見るための混合行列"><i class="fa fa-check"></i><b>7.5.5</b> 精度を見るための混合行列</a></li>
+<li class="chapter" data-level="7.5.6" data-path="機械学習.html"><a href="機械学習.html#ランダムフォレストのモデル作成"><i class="fa fa-check"></i><b>7.5.6</b> ランダムフォレストのモデル作成</a></li>
+<li class="chapter" data-level="7.5.7" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-2"><i class="fa fa-check"></i><b>7.5.7</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.5.8" data-path="機械学習.html"><a href="機械学習.html#精度を見るための混合行列-1"><i class="fa fa-check"></i><b>7.5.8</b> 精度を見るための混合行列</a></li>
+<li class="chapter" data-level="7.5.9" data-path="機械学習.html"><a href="機械学習.html#モデルの変数の重要度"><i class="fa fa-check"></i><b>7.5.9</b> モデルの変数の重要度</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="機械学習.html"><a href="機械学習.html#勾配ブースティングとは"><i class="fa fa-check"></i><b>7.6</b> 勾配ブースティングとは</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="機械学習.html"><a href="機械学習.html#フレームワーク"><i class="fa fa-check"></i><b>7.6.1</b> フレームワーク</a></li>
+<li class="chapter" data-level="7.6.2" data-path="機械学習.html"><a href="機械学習.html#今回使用するパッケージ-1"><i class="fa fa-check"></i><b>7.6.2</b> 今回使用するパッケージ</a></li>
+<li class="chapter" data-level="7.6.3" data-path="機械学習.html"><a href="機械学習.html#xgboostを使用する際の注意点"><i class="fa fa-check"></i><b>7.6.3</b> Xgboostを使用する際の注意点</a></li>
+<li class="chapter" data-level="7.6.4" data-path="機械学習.html"><a href="機械学習.html#label-encoding"><i class="fa fa-check"></i><b>7.6.4</b> Label encoding</a></li>
+<li class="chapter" data-level="7.6.5" data-path="機械学習.html"><a href="機械学習.html#データの分割-1"><i class="fa fa-check"></i><b>7.6.5</b> データの分割</a></li>
+<li class="chapter" data-level="7.6.6" data-path="機械学習.html"><a href="機械学習.html#データフレームの変換"><i class="fa fa-check"></i><b>7.6.6</b> データフレームの変換</a></li>
+<li class="chapter" data-level="7.6.7" data-path="機械学習.html"><a href="機械学習.html#パラメータ"><i class="fa fa-check"></i><b>7.6.7</b> パラメータ</a></li>
+<li class="chapter" data-level="7.6.8" data-path="機械学習.html"><a href="機械学習.html#モデルの作成"><i class="fa fa-check"></i><b>7.6.8</b> モデルの作成</a></li>
+<li class="chapter" data-level="7.6.9" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-3"><i class="fa fa-check"></i><b>7.6.9</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.6.10" data-path="機械学習.html"><a href="機械学習.html#このパッケージを使用する際の問題点と解決策"><i class="fa fa-check"></i><b>7.6.10</b> このパッケージを使用する際の問題点と解決策</a></li>
+<li class="chapter" data-level="7.6.11" data-path="機械学習.html"><a href="機械学習.html#caretとは"><i class="fa fa-check"></i><b>7.6.11</b> caretとは</a></li>
+<li class="chapter" data-level="7.6.12" data-path="機械学習.html"><a href="機械学習.html#caretを使用したxgboostの使用法"><i class="fa fa-check"></i><b>7.6.12</b> caretを使用したXgboostの使用法</a></li>
+<li class="chapter" data-level="7.6.13" data-path="機械学習.html"><a href="機械学習.html#並行処理"><i class="fa fa-check"></i><b>7.6.13</b> 並行処理</a></li>
+<li class="chapter" data-level="7.6.14" data-path="機械学習.html"><a href="機械学習.html#パラメータ-1"><i class="fa fa-check"></i><b>7.6.14</b> パラメータ</a></li>
+<li class="chapter" data-level="7.6.15" data-path="機械学習.html"><a href="機械学習.html#モデルの作成-1"><i class="fa fa-check"></i><b>7.6.15</b> モデルの作成</a></li>
+<li class="chapter" data-level="7.6.16" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-4"><i class="fa fa-check"></i><b>7.6.16</b> モデルの評価</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A minimal tidyverse and ML book for U!!!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="機械学習" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> 機械学習</h1>
+<div id="教師あり学習回帰分析" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> 教師あり学習・回帰分析</h2>
+<p>機械学習は「教師あり学習」と「教師なし学習」に大別されます。</p>
+<p>「教師あり学習」は入力値xと出力値yが対となって観測されるとき、そのxとyの間の関係を導こうとする機械学習手法です。</p>
+<p>「教師なし学習」は入力値xのみが観測されるとき、そのxの背後にある何らかの傾向を抽出しようとする機械学習手法です。</p>
+</div>
+<div id="回帰分析" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> 回帰分析</h2>
+<p>回帰分析は複数の説明変数を用いて目的変数を表すモデルを作成する分析方法です。</p>
+<ul>
+<li>何らかの関係が想像される変数間の関係を調べる(相関関係を示す)</li>
+<li>説明変数から被説明変数の値を予測する（予測）</li>
+</ul>
+<p>などの用途で使用されます。</p>
+<div id="回帰分析の前提条件" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> 回帰分析の前提条件</h3>
+<ul>
+<li><p>独立性（説明変数と残差は独立）</p></li>
+<li><p>等分散性（予測値に関わらず残差の分散が一定）</p></li>
+<li><p>正規性（残差が正規分布に従う）</p></li>
+<li><p>線形性（説明変数と目的変数の関係は直線で近似できる）</p>
+<ul>
+<li>参考　<a href="http://www.aoni.waseda.jp/abek/document/regression-3.html" class="uri">http://www.aoni.waseda.jp/abek/document/regression-3.html</a></li>
+</ul></li>
+</ul>
+<p>回帰分析の詳細は</p>
+<ul>
+<li><p>豊田（2012）『回帰分析入門　―Rで学ぶ最新データ解析―』</p></li>
+<li><p>管（2016）『例題とExcelで学ぶ多変量解析ー回帰分析・判別分析・コンジョイント分析編ー』</p></li>
+<li><p>【大学数学】最小二乗法(回帰分析)【確率統計】</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=Zz1sgYxrA-k" class="uri">https://www.youtube.com/watch?v=Zz1sgYxrA-k</a></li>
+</ul></li>
+<li><p>【機械学習】線形回帰（前編）| 線形回帰の理論</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=zo8BmIGSO2Y" class="uri">https://www.youtube.com/watch?v=zo8BmIGSO2Y</a></li>
+</ul></li>
+<li><p>【機械学習】線形回帰（後編）| 重回帰と正則化</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=xh1OtbZyxqw" class="uri">https://www.youtube.com/watch?v=xh1OtbZyxqw</a></li>
+</ul></li>
+</ul>
+<p>などを参考になさってください。</p>
+</div>
+<div id="今回使用するパッケージ" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> 今回使用するパッケージ</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="機械学習.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb26-2"><a href="機械学習.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb26-3"><a href="機械学習.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb26-4"><a href="機械学習.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
+</div>
+<div id="rコード回帰分析" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Rコード:回帰分析</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="機械学習.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y<span class="sc">~</span>., data)</span></code></pre></div>
+<ul>
+<li><p>y~. は回帰式に用いる被説明変数と説明変数などのモデルの形式を指定する部分です。yの部分に被説明変数を、~の後ろに説明変数を指定します。y以外のすべての列を説明変数としたい場合は上で示されているように.を入力してください。</p></li>
+<li><p>data は回帰分析に用いたデータセットの名前です。</p></li>
+</ul>
+<p>ほかにも引数はありますがここでは省きます。</p>
+</div>
+<div id="回帰分析の要約" class="section level3" number="7.2.4">
+<h3><span class="header-section-number">7.2.4</span> 回帰分析の要約</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="機械学習.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+</div>
+<div id="モデルを用いた予測" class="section level3" number="7.2.5">
+<h3><span class="header-section-number">7.2.5</span> モデルを用いた予測</h3>
+<p>予測にはpredict関数を使います。データはnewdataに指定します。</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="機械学習.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model,<span class="at">newdata =</span> DATA)</span></code></pre></div>
+</div>
+<div id="逐次選択法ステップワイズ法" class="section level3" number="7.2.6">
+<h3><span class="header-section-number">7.2.6</span> 逐次選択法（ステップワイズ法）</h3>
+<p>変数の数を変えながら最適なモデルを探す。</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="機械学習.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">step</span>(<span class="fu">lm</span>(y<span class="sc">~</span>.,<span class="at">data =</span> ))</span></code></pre></div>
+</div>
+<div id="vif統計量を算出" class="section level3" number="7.2.7">
+<h3><span class="header-section-number">7.2.7</span> VIF統計量を算出</h3>
+<p>carパッケージをインストールして使用します。</p>
+<p>回帰分析のモデルを引数にとります。</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="機械学習.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model)</span></code></pre></div>
+</div>
+<div id="正規性の確認" class="section level3" number="7.2.8">
+<h3><span class="header-section-number">7.2.8</span> 正規性の確認</h3>
+<p>残差の正規性の確認のためにQQplotを行います。
+* <a href="https://note.com/hanaori/n/ncbe31c630831" class="uri">https://note.com/hanaori/n/ncbe31c630831</a></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="機械学習.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(x)</span></code></pre></div>
+</div>
+<div id="モデルの評価aic" class="section level3" number="7.2.9">
+<h3><span class="header-section-number">7.2.9</span> モデルの評価（AIC）</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="機械学習.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lm)</span></code></pre></div>
+</div>
+<div id="モデルの評価msermse" class="section level3" number="7.2.10">
+<h3><span class="header-section-number">7.2.10</span> モデルの評価（MSE,RMSE）</h3>
+<p>評価指標とは、学習させたモデルの性能やその予測値の良し悪しを測る指標
+です。
+<a href="https://aizine.ai/rmse-rmsle1114/" class="uri">https://aizine.ai/rmse-rmsle1114/</a></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="機械学習.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb34-2"><a href="機械学習.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">metrics</span>(data,y1,y2)</span></code></pre></div>
+</div>
+</div>
+<div id="ロジスティック回帰" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> ロジスティック回帰</h2>
+<p>説明変数から確率を計算し予測する一般化線形モデルの一種です。「回帰」と名付けられているが分類に使います。今回は０か１で予測する二項ロジスティック回帰を扱います。3つ以上に分類するときは多項ロジスティック回帰を用います。</p>
+<div id="一般化線形モデルとは" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> 一般化線形モデルとは</h3>
+<p>一般線形モデル(回帰分析で使ったやつ)では目的変数が正規分布に従うことを前提としていましたが、一般化線形モデルでは目的変数が正規分布に従わなくても適用でき、さらに質的変数であっても使用できます。</p>
+<p><span class="math display">\[
+g(y) = \beta_0x_0 + \beta_1x_1 + \cdots + \beta_nx_n
+\]</span></p>
+<p><span class="math inline">\(g(・)\)</span>関数はリンク関数と言います。</p>
+</div>
+<div id="リンク関数" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> リンク関数</h3>
+<p>リンク関数は被説明変数を予測可能な形に変形させるものです。被説明変数の分布に対して一意に決まります。</p>
+<p>今回は二値分類なので二項分布に対応するリンク関数を適応します。</p>
+</div>
+<div id="多重共線性" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> 多重共線性</h3>
+<p>重回帰分析と同様、多重共線性への注意が必要です。相関係数行列などで確認しましょう。</p>
+</div>
+<div id="rコードロジスティック回帰" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Rコード:ロジスティック回帰</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="機械学習.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y<span class="sc">~</span>.,data,<span class="at">family=</span>binomial)</span></code></pre></div>
+</div>
+<div id="モデルのあてはめ" class="section level3" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> モデルのあてはめ</h3>
+<p>type = “response”とすることに注意してください。</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="機械学習.html#cb36-1" aria-hidden="true" tabindex="-1"></a>pred_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model1,<span class="at">newdata =</span> df_test,<span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+</div>
+<div id="欠損値の除去" class="section level3" number="7.3.6">
+<h3><span class="header-section-number">7.3.6</span> 欠損値の除去</h3>
+<p>今回のデータは欠損値を含みます。欠損値の処理方法は色々ありますが、今回は欠損値を含む列を削除する方法を取ります。</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="機械学習.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_na</span>(Data)</span></code></pre></div>
+</div>
+<div id="閾値しきいちの決定" class="section level3" number="7.3.7">
+<h3><span class="header-section-number">7.3.7</span> 閾値（しきいち）の決定</h3>
+<p>ロジスティック回帰は1の値を取る確率を求めてきます。何％以上なら1、それ以下なら0とする基準（閾値）を自分で決めなければいけません</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="機械学習.html#cb38-1" aria-hidden="true" tabindex="-1"></a>Data <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="機械学習.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Predicted_value =</span> <span class="fu">if_else</span>(column <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+</div>
+<div id="モデルの評価" class="section level3" number="7.3.8">
+<h3><span class="header-section-number">7.3.8</span> モデルの評価</h3>
+<p>予測値と実測値のクロス集計表を作成することで正解率を求めることができます。</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="機械学習.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="st">&quot;予測値&quot;</span><span class="ot">=</span>col,<span class="st">&quot;実測値&quot;</span><span class="ot">=</span>col)</span></code></pre></div>
+</div>
+</div>
+<div id="決定木と応用手法" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> 決定木と応用手法</h2>
+<p>決定木は分類にも回帰にも用いることができるアルゴリズムです。
+分類に使われる決定木を分類木、回帰に使われる決定木を回帰木と呼びます。
+ある基準に沿ってデータを何度も分割し予測値を算出します。
+分割の基準には分割後の不純度が用いられます。色々なクラスが混在するグループは不純度が高く、ある一つのクラスで構成されている、もしくはある1つのクラスの割合が大多数を占めるほど不純度は低くなります。
+決定木を応用した手法にランダムフォレストやXgboostなどがあります。</p>
+<pre><code>## Loading required package: grid</code></pre>
+<pre><code>## Loading required package: libcoin</code></pre>
+<pre><code>## Loading required package: mvtnorm</code></pre>
+<p><img src="R4F_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div id="ランダムフォレスト" class="section level3" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> ランダムフォレスト</h3>
+<p>ランダムフォレストは決定木を並列にいくつも繋げたアルゴリズムです。それぞれの決定木が出した結果の多数決を取り結果を算出します。回帰問題の場合は平均を取ります。決定木単体に比べ良い精度が見込めます。ランダムフォレストのようにいくつものアルゴリズムの多数決をとる手法をバギングといいます。</p>
+</div>
+<div id="必要なパッケージ" class="section level3" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> 必要なパッケージ</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="機械学習.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rpart&quot;</span>) <span class="co">#決定木の作成</span></span>
+<span id="cb43-2"><a href="機械学習.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;partykit&quot;</span>) <span class="co">#決定木の可視化</span></span>
+<span id="cb43-3"><a href="機械学習.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;randomForest&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="今回使用するデータセット" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> 今回使用するデータセット</h2>
+<p>今回はR標準データセットのirisを使用します。アヤメの特徴から品種を予測を目指します。</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="機械学習.html#cb44-1" aria-hidden="true" tabindex="-1"></a>Data <span class="ot">&lt;-</span> iris</span>
+<span id="cb44-2"><a href="機械学習.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Data)</span></code></pre></div>
+<div id="データの分割" class="section level3" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> データの分割</h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="機械学習.html#cb45-1" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Data,<span class="at">p =</span> <span class="fl">0.8</span>)</span>
+<span id="cb45-2"><a href="機械学習.html#cb45-2" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
+<span id="cb45-3"><a href="機械学習.html#cb45-3" aria-hidden="true" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span></code></pre></div>
+</div>
+<div id="決定木のモデル作成" class="section level3" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> 決定木のモデル作成</h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="機械学習.html#cb46-1" aria-hidden="true" tabindex="-1"></a>model_cart <span class="ot">=</span> <span class="fu">rpart</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> df_train)</span></code></pre></div>
+</div>
+<div id="決定木の可視化" class="section level3" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> 決定木の可視化</h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="機械学習.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.party</span>(model_cart))</span></code></pre></div>
+</div>
+<div id="モデルの評価-1" class="section level3" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> モデルの評価</h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="機械学習.html#cb48-1" aria-hidden="true" tabindex="-1"></a>result_cart <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_cart,<span class="at">newdata =</span> df_test,<span class="at">type=</span><span class="st">&quot;class&quot;</span>)</span>
+<span id="cb48-2"><a href="機械学習.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(result_cart)</span></code></pre></div>
+</div>
+<div id="精度を見るための混合行列" class="section level3" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> 精度を見るための混合行列</h3>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="機械学習.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df_test<span class="sc">$</span>Species,result_cart)</span></code></pre></div>
+</div>
+<div id="ランダムフォレストのモデル作成" class="section level3" number="7.5.6">
+<h3><span class="header-section-number">7.5.6</span> ランダムフォレストのモデル作成</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="機械学習.html#cb50-1" aria-hidden="true" tabindex="-1"></a>model_randm <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> df_train)</span></code></pre></div>
+</div>
+<div id="モデルの評価-2" class="section level3" number="7.5.7">
+<h3><span class="header-section-number">7.5.7</span> モデルの評価</h3>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="機械学習.html#cb51-1" aria-hidden="true" tabindex="-1"></a>result_randm <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_randm,<span class="at">newdata =</span> df_test,<span class="at">type=</span><span class="st">&quot;class&quot;</span>)</span>
+<span id="cb51-2"><a href="機械学習.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(result_randm)</span></code></pre></div>
+</div>
+<div id="精度を見るための混合行列-1" class="section level3" number="7.5.8">
+<h3><span class="header-section-number">7.5.8</span> 精度を見るための混合行列</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="機械学習.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df_test<span class="sc">$</span>Species,result_randm)</span></code></pre></div>
+</div>
+<div id="モデルの変数の重要度" class="section level3" number="7.5.9">
+<h3><span class="header-section-number">7.5.9</span> モデルの変数の重要度</h3>
+<p>その特徴量の分割がターゲットの分類にどれくらい寄与しているかを測る指標</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="機械学習.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">importance</span>(model_randm))</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="機械学習.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(model_randm)</span></code></pre></div>
+</div>
+</div>
+<div id="勾配ブースティングとは" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> 勾配ブースティングとは</h2>
+<p>勾配ブースティングは決定木（もしくは別の弱分類機）を、過去の失敗を活かすように複数作成していくモデル。先に学習したモデルで分類に失敗した訓練データを積極的に分類できるよう、後段のモデルを修正していく。ランダムフォレストと違い、決定木が直列に作られるので並列計算できず、計算量が大きくなる。</p>
+<div id="フレームワーク" class="section level3" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> フレームワーク</h3>
+<ul>
+<li>Xgboost
+<ul>
+<li>2014年リリース。</li>
+</ul></li>
+<li>LightGBM
+<ul>
+<li>2016年リリース。Microsoftが作成。モデル訓練に掛かる時間が短い。</li>
+</ul></li>
+<li>Catboost
+<ul>
+<li>2017年リリース。ロシアの企業が作成。Xgboost、LightGBMと遜色ない精度と速度。</li>
+</ul></li>
+</ul>
+<p>どのライブラリも微妙な違いがあり、問題によって精度の良し悪しが変わってくる。</p>
+</div>
+<div id="今回使用するパッケージ-1" class="section level3" number="7.6.2">
+<h3><span class="header-section-number">7.6.2</span> 今回使用するパッケージ</h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="機械学習.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)　<span class="co">#前処理に使用</span></span>
+<span id="cb55-2"><a href="機械学習.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co">#データの分割に使用</span></span>
+<span id="cb55-3"><a href="機械学習.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table) <span class="co">#データフレームの変換に必要</span></span>
+<span id="cb55-4"><a href="機械学習.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost) <span class="co">#Xgboostパッケージ</span></span>
+<span id="cb55-5"><a href="機械学習.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix) <span class="co">#Xgboost用のデータ形式に変換</span></span></code></pre></div>
+</div>
+<div id="xgboostを使用する際の注意点" class="section level3" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> Xgboostを使用する際の注意点</h3>
+<ul>
+<li>モデル作成に時間がかかる。気長に待とう。</li>
+<li>R標準のデータ形式（dataframeやlistなど）のままでは使用できない。専用のパッケージを使ったデータの加工が必要。</li>
+<li>標準化、欠損値の処理は必要ない。</li>
+<li>カテゴリ型（facter型、character型など）はLabel encoding で数値に変換
+<ul>
+<li>例)男性,女性,その他,答えたくない ⇒　0,1,2,3</li>
+<li>ダミー変数(one-hot-encoding)は決定木系のライブラリには不向き</li>
+</ul></li>
+</ul>
+</div>
+<div id="label-encoding" class="section level3" number="7.6.4">
+<h3><span class="header-section-number">7.6.4</span> Label encoding</h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="機械学習.html#cb56-1" aria-hidden="true" tabindex="-1"></a>Data_factor_label <span class="ot">&lt;-</span> Data <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="機械学習.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.character) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="機械学習.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(as.factor) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="機械学習.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(as.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb56-5"><a href="機械学習.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="co">#元データからcharacter型の列を取り出しfactor型に変換、その後factor型からnumeric型に変換。</span></span>
+<span id="cb56-6"><a href="機械学習.html#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="機械学習.html#cb56-7" aria-hidden="true" tabindex="-1"></a>Data_LE <span class="ot">&lt;-</span> Data <span class="sc">%&gt;%</span></span>
+<span id="cb56-8"><a href="機械学習.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb56-9"><a href="機械学習.html#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(Data_factor_label)　<span class="co">#元データのnumeric型の列を取り出し、上でLabel encodingした列を結合。</span></span></code></pre></div>
+<p>（もっといいやり方があるかも…）</p>
+<div id="関数の働きをひとつづつ" class="section level4" number="7.6.4.1">
+<h4><span class="header-section-number">7.6.4.1</span> 関数の働きをひとつづつ</h4>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="機械学習.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_if</span>() <span class="co">#カッコ内の真偽値で列を絞る</span></span>
+<span id="cb57-2"><a href="機械学習.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.character</span>() <span class="co">#列に含まれるデータがcharacter型であればTrueを返す関数。facter型,numeric型など別のデータ型にも同様の関数が存在。</span></span>
+<span id="cb57-3"><a href="機械学習.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>() <span class="co">#与えたデータセットに含まれる各要素にカッコ内の関数を適応する。データをlist形式で返してくる。</span></span>
+<span id="cb57-4"><a href="機械学習.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>() <span class="co">#factor型に変換別のデータ型にも同様の関数が存在。</span></span>
+<span id="cb57-5"><a href="機械学習.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>() <span class="co">#numeric型に変換</span></span>
+<span id="cb57-6"><a href="機械学習.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>() <span class="co">#データフレーム型に変換</span></span>
+<span id="cb57-7"><a href="機械学習.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>()<span class="co">#データフレーム同士を結合</span></span></code></pre></div>
+</div>
+</div>
+<div id="データの分割-1" class="section level3" number="7.6.5">
+<h3><span class="header-section-number">7.6.5</span> データの分割</h3>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="機械学習.html#cb58-1" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Data,<span class="at">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb58-2"><a href="機械学習.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="機械学習.html#cb58-3" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
+<span id="cb58-4"><a href="機械学習.html#cb58-4" aria-hidden="true" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span></code></pre></div>
+</div>
+<div id="データフレームの変換" class="section level3" number="7.6.6">
+<h3><span class="header-section-number">7.6.6</span> データフレームの変換</h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="機械学習.html#cb59-1" aria-hidden="true" tabindex="-1"></a>model.data.dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(df_train,<span class="at">keep.rownames=</span>F)</span>
+<span id="cb59-2"><a href="機械学習.html#cb59-2" aria-hidden="true" tabindex="-1"></a>pre.data.dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(df_test,<span class="at">keep.rownames=</span>F) <span class="co">#data.frameをdata.tableに変換</span></span>
+<span id="cb59-3"><a href="機械学習.html#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="機械学習.html#cb59-4" aria-hidden="true" tabindex="-1"></a>model.data.mx <span class="ot">&lt;-</span> <span class="fu">sparse.model.matrix</span>(y<span class="sc">~</span>.,model.data.dt) <span class="co">#yに目的変数の列名を指定。~の後ろは説明変数を指定。y以外の全列を指定したいときは.を指定。</span></span>
+<span id="cb59-5"><a href="機械学習.html#cb59-5" aria-hidden="true" tabindex="-1"></a>model.data.dm <span class="ot">&lt;-</span> <span class="fu">xgb.DMatrix</span>(model.data.mx,<span class="at">label=</span>model.data.dt<span class="sc">$</span>y)<span class="co">#data.tableをxgb.DMatrixに変換。変換に使うdata.tableの目的変数の列名を指定。</span></span>
+<span id="cb59-6"><a href="機械学習.html#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="機械学習.html#cb59-7" aria-hidden="true" tabindex="-1"></a>pre.data.mx <span class="ot">&lt;-</span> <span class="fu">sparse.model.matrix</span>(y<span class="sc">~</span>.,pre.data.dt)　<span class="co">#yに目的変数の列名を指定。~の後ろは説明変数を指定。y以外の全列を指定したいときは.を指定。</span></span>
+<span id="cb59-8"><a href="機械学習.html#cb59-8" aria-hidden="true" tabindex="-1"></a>pre.data.dm <span class="ot">&lt;-</span> <span class="fu">xgb.DMatrix</span>(pre.data.mx,<span class="at">label=</span>pre.data.dt<span class="sc">$</span>y) <span class="co">#data.tableをxgb.DMatrixに変換</span></span></code></pre></div>
+</div>
+<div id="パラメータ" class="section level3" number="7.6.7">
+<h3><span class="header-section-number">7.6.7</span> パラメータ</h3>
+<p>Xgboostにはユーザーが設定するパラメータが多数存在します。</p>
+<ul>
+<li>eta [デフォルト = 0.3] 範囲 0~1
+<ul>
+<li>過学習防止のためのパラメータで学習率を調整する。
+小さくすると、モデルの精度を高めることが可能。計算コストは増える（モデル作成が遅くなる）
+値によっては繰り返し回数が増えるほど(nroundsの値が大きいほど)過学習が進み精度が低下する恐れがある。</li>
+</ul></li>
+<li>gamma [デフォルト = 0] 範囲 0~∞
+<ul>
+<li>決定木の葉は多ければ多いほど木が複雑となり、過学習を起こしやすくなる。このパラメータはその葉の数に対するペナルティー。値が大きいほどアルゴリズムは保守的になる（過学習しにくくなる）。</li>
+</ul></li>
+<li>max_depth [デフォルト = 6] 範囲 0~∞
+<ul>
+<li>決定木の深さの最大値を意味する。値が大きいとほどモデルが複雑になるため、過学習する可能性が高くなる。</li>
+</ul></li>
+<li>min_child_weight [デフォルト = 1] 範囲 0~∞
+<ul>
+<li>決定木の葉の重みの下限を意味する。重みの合計値がmin_child_weight未満であれば、それ以上の分割は行われない。値が大きいほど単調な決定木となり、過学習を抑制。</li>
+</ul></li>
+<li>max_delta_step [デフォルト = 0] 範囲 0~∞
+*値を設定することで、各決定木の重みの推定に制約をかけることができる。0の場合は制約なしとなり、整数値を設定するとモデルをより保守的にする。あまり必要のないパラメータであるらしい。</li>
+<li>subsample [デフォルト = 1] 範囲 0~1
+<ul>
+<li>各決定木においてランダムに抽出される標本(データ)の割合を意味する。小さくすることで過学習を避けることができますが、保守的なモデルとなる。</li>
+</ul></li>
+<li>colsample_bytree [デフォルト = 1] 範囲 0~1
+<ul>
+<li>各決定木においてランダムに抽出される列の割合を意味する。この値を設定することで説明変数を全て使わずに設定された割合でランダムに抽出された説明変数のみを使用してモデルを作成する。</li>
+</ul></li>
+<li>colsample_bylevel [デフォルト = 1] 範囲 0~1
+<ul>
+<li>決定木の各レベル単位での分割における列のsubsample比率を意味する。subsampleとcolsample_bytreeを設定していればこのパラメータまでチューニングする必要はない。</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="機械学習.html#cb60-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb60-2"><a href="機械学習.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">eta=</span><span class="fl">0.01</span>,</span>
+<span id="cb60-3"><a href="機械学習.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma=</span><span class="dv">0</span>,</span>
+<span id="cb60-4"><a href="機械学習.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_depth=</span><span class="dv">15</span>,</span>
+<span id="cb60-5"><a href="機械学習.html#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_child_weight=</span><span class="dv">1</span>,</span>
+<span id="cb60-6"><a href="機械学習.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_delta_step=</span><span class="dv">0</span>,</span>
+<span id="cb60-7"><a href="機械学習.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">subsample=</span><span class="dv">1</span>,</span>
+<span id="cb60-8"><a href="機械学習.html#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">colsample_bytree=</span><span class="dv">1</span>,</span>
+<span id="cb60-9"><a href="機械学習.html#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">colsample_bylevel=</span><span class="dv">1</span>,</span>
+<span id="cb60-10"><a href="機械学習.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">lambda=</span><span class="dv">1</span>,</span>
+<span id="cb60-11"><a href="機械学習.html#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha=</span><span class="dv">0</span></span>
+<span id="cb60-12"><a href="機械学習.html#cb60-12" aria-hidden="true" tabindex="-1"></a>)　<span class="co">#デフォルトの値</span></span></code></pre></div>
+</div>
+<div id="モデルの作成" class="section level3" number="7.6.8">
+<h3><span class="header-section-number">7.6.8</span> モデルの作成</h3>
+<p>objectは回帰か分類化によって変更してください。
+引数　・reg:linear(線形回帰)</p>
+<p>　　　・reg:logistic(ロジスティック回帰)
+　　　
+　　　・binary:logistic(2項分類で確率を返す)
+　　　
+　　　・multi:softmax(多項分類でクラスの値を返す)
+　　　
+multi:softmaxを指定した場合、num_classの指定が必要</p>
+<p>nrounds
+ブースティングを行う回数(決定木の本数)を意味する。
+クロスバリデーションを行うことで最適なブースティング回数を求めることができる。</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="機械学習.html#cb61-1" aria-hidden="true" tabindex="-1"></a>xgb_cv <span class="ot">&lt;-</span> <span class="fu">xgb.cv</span>(</span>
+<span id="cb61-2"><a href="機械学習.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> model.data.dm, </span>
+<span id="cb61-3"><a href="機械学習.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrounds =</span> <span class="dv">50000</span>, <span class="co"># 最大の繰り返し回数を指定。十分大きな値を指定する。</span></span>
+<span id="cb61-4"><a href="機械学習.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfold =</span> <span class="dv">8</span>, <span class="co"># クロスバリデーションの分割数を指定</span></span>
+<span id="cb61-5"><a href="機械学習.html#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> params,</span>
+<span id="cb61-6"><a href="機械学習.html#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">early_stopping_rounds =</span> <span class="dv">100</span> <span class="co"># ある回数を基準としてそこから100回以内に評価関数の値が改善しなければ計算をストップ</span></span>
+<span id="cb61-7"><a href="機械学習.html#cb61-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="機械学習.html#cb62-1" aria-hidden="true" tabindex="-1"></a>xgb.result <span class="ot">&lt;-</span> <span class="fu">xgb.train</span>(<span class="at">params=</span>params, <span class="at">data=</span>model.data.dm, <span class="at">label=</span>model.data.dt<span class="sc">$</span>SalePrice, <span class="at">objective=</span><span class="st">&quot;reg:linear&quot;</span>, <span class="at">booster=</span><span class="st">&quot;gbtree&quot;</span>,<span class="at">nrounds =</span> <span class="dv">500</span>)</span></code></pre></div>
+</div>
+<div id="モデルの評価-3" class="section level3" number="7.6.9">
+<h3><span class="header-section-number">7.6.9</span> モデルの評価</h3>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="機械学習.html#cb63-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object=</span>xgb.result,<span class="at">newdata=</span>pre.data.dm)</span></code></pre></div>
+</div>
+<div id="このパッケージを使用する際の問題点と解決策" class="section level3" number="7.6.10">
+<h3><span class="header-section-number">7.6.10</span> このパッケージを使用する際の問題点と解決策</h3>
+<p>問題点：デフォルトのXgboostパッケージにはパラメータを調整する関数が存在しない。手動で設定するか、自分で関数を作るしかない。</p>
+<p>解決策：caret上でxgboostを使用しパレメータの探索を行わせる。</p>
+</div>
+<div id="caretとは" class="section level3" number="7.6.11">
+<h3><span class="header-section-number">7.6.11</span> caretとは</h3>
+<p>caretとは、Classification And Regression Trainingの略</p>
+<p>機械学習に必要な</p>
+<ul>
+<li>データの分割（trainデータとtestデータの分割）</li>
+<li>前処理</li>
+<li>特徴量選択</li>
+<li>モデルの訓練・評価(グリッドサーチなど)</li>
+</ul>
+<p>の一連の操作を行えるパッケージ。多くのアルゴリズムをサポート。</p>
+<p>今回はモデルの訓練のために使用。</p>
+<p>似たパッケージにtidymodelsやmlrなどがある。比較的歴史が長くサポートサイトが豊富なためcaretを使用。</p>
+<p>使用者が増えて参考記事が増えてくればtidymodelsが良い選択肢になるだろう。</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="機械学習.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb64-2"><a href="機械学習.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span></code></pre></div>
+</div>
+<div id="caretを使用したxgboostの使用法" class="section level3" number="7.6.12">
+<h3><span class="header-section-number">7.6.12</span> caretを使用したXgboostの使用法</h3>
+</div>
+<div id="並行処理" class="section level3" number="7.6.13">
+<h3><span class="header-section-number">7.6.13</span> 並行処理</h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="機械学習.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)　<span class="co">#自分のPCのコア数を確認</span></span>
+<span id="cb65-2"><a href="機械学習.html#cb65-2" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(<span class="dv">4</span>) <span class="co">#自分でコア数を指定</span></span>
+<span id="cb65-3"><a href="機械学習.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl)</span></code></pre></div>
+</div>
+<div id="パラメータ-1" class="section level3" number="7.6.14">
+<h3><span class="header-section-number">7.6.14</span> パラメータ</h3>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="機械学習.html#cb66-1" aria-hidden="true" tabindex="-1"></a>xgb_grid_1 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb66-2"><a href="機械学習.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrounds=</span> <span class="dv">1000</span>,</span>
+<span id="cb66-3"><a href="機械学習.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">eta=</span><span class="fl">0.1</span>,</span>
+<span id="cb66-4"><a href="機械学習.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_depth =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb66-5"><a href="機械学習.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">colsample_bytree =</span> <span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
+<span id="cb66-6"><a href="機械学習.html#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_child_weight =</span> <span class="dv">1</span>,</span>
+<span id="cb66-7"><a href="機械学習.html#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="dv">0</span>,</span>
+<span id="cb66-8"><a href="機械学習.html#cb66-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">subsample =</span> <span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="fl">0.1</span>)</span>
+<span id="cb66-9"><a href="機械学習.html#cb66-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-10"><a href="機械学習.html#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="機械学習.html#cb66-11" aria-hidden="true" tabindex="-1"></a>xgb_trcontrol <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(</span>
+<span id="cb66-12"><a href="機械学習.html#cb66-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">method=</span><span class="st">&quot;cv&quot;</span>,</span>
+<span id="cb66-13"><a href="機械学習.html#cb66-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">number =</span> <span class="dv">8</span>,</span>
+<span id="cb66-14"><a href="機械学習.html#cb66-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">verboseIter =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-15"><a href="機械学習.html#cb66-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnData=</span><span class="cn">FALSE</span>,</span>
+<span id="cb66-16"><a href="機械学習.html#cb66-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnResamp =</span> <span class="st">&quot;all&quot;</span>,</span>
+<span id="cb66-17"><a href="機械学習.html#cb66-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">allowParallel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-18"><a href="機械学習.html#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="機械学習.html#cb66-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="モデルの作成-1" class="section level3" number="7.6.15">
+<h3><span class="header-section-number">7.6.15</span> モデルの作成</h3>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="機械学習.html#cb67-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb67-2"><a href="機械学習.html#cb67-2" aria-hidden="true" tabindex="-1"></a> <span class="at">x =</span> <span class="fu">as.matrix</span>(df_train <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>SalePrice)),</span>
+<span id="cb67-3"><a href="機械学習.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span> df_train<span class="sc">$</span>SalePrice,</span>
+<span id="cb67-4"><a href="機械学習.html#cb67-4" aria-hidden="true" tabindex="-1"></a> <span class="at">trControl =</span> xgb_trcontrol,</span>
+<span id="cb67-5"><a href="機械学習.html#cb67-5" aria-hidden="true" tabindex="-1"></a> <span class="at">tuneGrid =</span> xgb_grid_1,</span>
+<span id="cb67-6"><a href="機械学習.html#cb67-6" aria-hidden="true" tabindex="-1"></a> <span class="at">method=</span><span class="st">&quot;xgbTree&quot;</span></span>
+<span id="cb67-7"><a href="機械学習.html#cb67-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="モデルの評価-4" class="section level3" number="7.6.16">
+<h3><span class="header-section-number">7.6.16</span> モデルの評価</h3>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="機械学習.html#cb68-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(result, df_test)</span></code></pre></div>
+<p>手順(<a href="https://www.marketechlabo.com/r-xgboost-tuning/" class="uri">https://www.marketechlabo.com/r-xgboost-tuning/</a>　より)</p>
+<p>1.学習率etaの初期値を決める。</p>
+<p>XGBoostでは基本的に学習率etaが小さければ小さいほどいい。
+ただし小さくすると学習に時間がかかるので、何度も学習を繰り返すグリッドサーチでは他のパラメータをチューニングするためにある程度小さいetaの値を決めておいて、そこで他のパラメータをチューニングする。</p>
+<p>他のパラメータの値が決まってからetaを時間との兼ね合いでチューニングする（小さくしていく）。</p>
+<p>デフォルトの0.3では大きいので0.01～0.1あたりに設定する。</p>
+<p>2.木の複雑さを指定するパラメータmax_depth, min_child_weightを同時に決める</p>
+<p>3.（gammaを決める）</p>
+<p>4.データのサンプリングの度合いを指定するパラメータsubsample,colsample_bytreeを同時に決める。いずれも0.5から1の間あたりで設定するといい。</p>
+<p>5.（正則化パラメータalpha, lambdaを同時に決める）</p>
+<p>6.ブースティングの繰り返し回数nroundsはグリッドサーチではなく、上記のパラメータの組合せごとに繰り返し計算（ブースティング）の手順で決める。</p>
+<p>7.etaを小さくしていく</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="データの可視化.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R4F.pdf", "R4F.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

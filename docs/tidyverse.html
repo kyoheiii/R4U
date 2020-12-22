@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 tidyverse | A minimal tidyverse and ML book for U!!!</title>
+  <meta name="description" content="Chapter 3 tidyverse | A minimal tidyverse and ML book for U!!!" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 tidyverse | A minimal tidyverse and ML book for U!!!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 tidyverse | A minimal tidyverse and ML book for U!!!" />
+  
+  
+  
+
+<meta name="author" content="Kyohei ITO" />
+
+
+<meta name="date" content="2020-12-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="パッケージのインストール.html"/>
+<link rel="next" href="dataの読み込み.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> まえがき</a></li>
+<li class="chapter" data-level="2" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html"><i class="fa fa-check"></i><b>2</b> パッケージのインストール</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#パッケージとは"><i class="fa fa-check"></i><b>2.1</b> パッケージとは</a></li>
+<li class="chapter" data-level="2.2" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#インストール方法"><i class="fa fa-check"></i><b>2.2</b> インストール方法</a></li>
+<li class="chapter" data-level="2.3" data-path="パッケージのインストール.html"><a href="パッケージのインストール.html#パッケージの読み込み"><i class="fa fa-check"></i><b>2.3</b> パッケージの読み込み</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>3</b> tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tidyverse.html"><a href="tidyverse.html#tidyverseとは"><i class="fa fa-check"></i><b>3.1</b> tidyverseとは</a></li>
+<li class="chapter" data-level="3.2" data-path="tidyverse.html"><a href="tidyverse.html#インストールと読み込み"><i class="fa fa-check"></i><b>3.2</b> インストールと読み込み</a></li>
+<li class="chapter" data-level="3.3" data-path="tidyverse.html"><a href="tidyverse.html#baserとtidyverse"><i class="fa fa-check"></i><b>3.3</b> baseRとtidyverse</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dataの読み込み.html"><a href="dataの読み込み.html"><i class="fa fa-check"></i><b>4</b> Dataの読み込み</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dataの読み込み.html"><a href="dataの読み込み.html#excelファイルの読み込みパッケージインストール"><i class="fa fa-check"></i><b>4.1</b> EXCELファイルの読み込み（パッケージインストール）</a></li>
+<li class="chapter" data-level="4.2" data-path="dataの読み込み.html"><a href="dataの読み込み.html#readxlのインストールと読み込み"><i class="fa fa-check"></i><b>4.2</b> readxlのインストールと読み込み</a></li>
+<li class="chapter" data-level="4.3" data-path="dataの読み込み.html"><a href="dataの読み込み.html#excelファイルの読み込み実行"><i class="fa fa-check"></i><b>4.3</b> EXCELファイルの読み込み(実行)</a></li>
+<li class="chapter" data-level="4.4" data-path="dataの読み込み.html"><a href="dataの読み込み.html#pathとは"><i class="fa fa-check"></i><b>4.4</b> pathとは</a></li>
+<li class="chapter" data-level="4.5" data-path="dataの読み込み.html"><a href="dataの読み込み.html#csvtsvファイルの読み込み"><i class="fa fa-check"></i><b>4.5</b> CSV,TSVファイルの読み込み</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="データの前処理.html"><a href="データの前処理.html"><i class="fa fa-check"></i><b>5</b> データの前処理</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="データの前処理.html"><a href="データの前処理.html#dplyrtidyrによるデータ前処理"><i class="fa fa-check"></i><b>5.1</b> dplyr/tidyrによるデータ前処理</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="データの前処理.html"><a href="データの前処理.html#tidyrでできる事"><i class="fa fa-check"></i><b>5.1.1</b> tidyrでできる事</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="データの前処理.html"><a href="データの前処理.html#横長データの変形"><i class="fa fa-check"></i><b>5.2</b> 横長データの変形</a></li>
+<li class="chapter" data-level="5.3" data-path="データの前処理.html"><a href="データの前処理.html#縦長データの変形"><i class="fa fa-check"></i><b>5.3</b> 縦長データの変形</a></li>
+<li class="chapter" data-level="5.4" data-path="データの前処理.html"><a href="データの前処理.html#dplyrでできる事"><i class="fa fa-check"></i><b>5.4</b> dplyrでできる事</a></li>
+<li class="chapter" data-level="5.5" data-path="データの前処理.html"><a href="データの前処理.html#列の抽出"><i class="fa fa-check"></i><b>5.5</b> 列の抽出</a></li>
+<li class="chapter" data-level="5.6" data-path="データの前処理.html"><a href="データの前処理.html#列の削除"><i class="fa fa-check"></i><b>5.6</b> 列の削除</a></li>
+<li class="chapter" data-level="5.7" data-path="データの前処理.html"><a href="データの前処理.html#行の抽出"><i class="fa fa-check"></i><b>5.7</b> 行の抽出</a></li>
+<li class="chapter" data-level="5.8" data-path="データの前処理.html"><a href="データの前処理.html#演算子による処理のパイプライン化"><i class="fa fa-check"></i><b>5.8</b> %&gt;%演算子による処理のパイプライン化</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="データの可視化.html"><a href="データの可視化.html"><i class="fa fa-check"></i><b>6</b> データの可視化</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="データの可視化.html"><a href="データの可視化.html#なぜデータを可視化するのか"><i class="fa fa-check"></i><b>6.1</b> なぜデータを可視化するのか</a></li>
+<li class="chapter" data-level="6.2" data-path="データの可視化.html"><a href="データの可視化.html#ggplot2とは"><i class="fa fa-check"></i><b>6.2</b> ggplot2とは</a></li>
+<li class="chapter" data-level="6.3" data-path="データの可視化.html"><a href="データの可視化.html#基本的な使い方"><i class="fa fa-check"></i><b>6.3</b> 基本的な使い方</a></li>
+<li class="chapter" data-level="6.4" data-path="データの可視化.html"><a href="データの可視化.html#データの指定"><i class="fa fa-check"></i><b>6.4</b> データの指定</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="機械学習.html"><a href="機械学習.html"><i class="fa fa-check"></i><b>7</b> 機械学習</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="機械学習.html"><a href="機械学習.html#教師あり学習回帰分析"><i class="fa fa-check"></i><b>7.1</b> 教師あり学習・回帰分析</a></li>
+<li class="chapter" data-level="7.2" data-path="機械学習.html"><a href="機械学習.html#回帰分析"><i class="fa fa-check"></i><b>7.2</b> 回帰分析</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="機械学習.html"><a href="機械学習.html#回帰分析の前提条件"><i class="fa fa-check"></i><b>7.2.1</b> 回帰分析の前提条件</a></li>
+<li class="chapter" data-level="7.2.2" data-path="機械学習.html"><a href="機械学習.html#今回使用するパッケージ"><i class="fa fa-check"></i><b>7.2.2</b> 今回使用するパッケージ</a></li>
+<li class="chapter" data-level="7.2.3" data-path="機械学習.html"><a href="機械学習.html#rコード回帰分析"><i class="fa fa-check"></i><b>7.2.3</b> Rコード:回帰分析</a></li>
+<li class="chapter" data-level="7.2.4" data-path="機械学習.html"><a href="機械学習.html#回帰分析の要約"><i class="fa fa-check"></i><b>7.2.4</b> 回帰分析の要約</a></li>
+<li class="chapter" data-level="7.2.5" data-path="機械学習.html"><a href="機械学習.html#モデルを用いた予測"><i class="fa fa-check"></i><b>7.2.5</b> モデルを用いた予測</a></li>
+<li class="chapter" data-level="7.2.6" data-path="機械学習.html"><a href="機械学習.html#逐次選択法ステップワイズ法"><i class="fa fa-check"></i><b>7.2.6</b> 逐次選択法（ステップワイズ法）</a></li>
+<li class="chapter" data-level="7.2.7" data-path="機械学習.html"><a href="機械学習.html#vif統計量を算出"><i class="fa fa-check"></i><b>7.2.7</b> VIF統計量を算出</a></li>
+<li class="chapter" data-level="7.2.8" data-path="機械学習.html"><a href="機械学習.html#正規性の確認"><i class="fa fa-check"></i><b>7.2.8</b> 正規性の確認</a></li>
+<li class="chapter" data-level="7.2.9" data-path="機械学習.html"><a href="機械学習.html#モデルの評価aic"><i class="fa fa-check"></i><b>7.2.9</b> モデルの評価（AIC）</a></li>
+<li class="chapter" data-level="7.2.10" data-path="機械学習.html"><a href="機械学習.html#モデルの評価msermse"><i class="fa fa-check"></i><b>7.2.10</b> モデルの評価（MSE,RMSE）</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="機械学習.html"><a href="機械学習.html#ロジスティック回帰"><i class="fa fa-check"></i><b>7.3</b> ロジスティック回帰</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="機械学習.html"><a href="機械学習.html#一般化線形モデルとは"><i class="fa fa-check"></i><b>7.3.1</b> 一般化線形モデルとは</a></li>
+<li class="chapter" data-level="7.3.2" data-path="機械学習.html"><a href="機械学習.html#リンク関数"><i class="fa fa-check"></i><b>7.3.2</b> リンク関数</a></li>
+<li class="chapter" data-level="7.3.3" data-path="機械学習.html"><a href="機械学習.html#多重共線性"><i class="fa fa-check"></i><b>7.3.3</b> 多重共線性</a></li>
+<li class="chapter" data-level="7.3.4" data-path="機械学習.html"><a href="機械学習.html#rコードロジスティック回帰"><i class="fa fa-check"></i><b>7.3.4</b> Rコード:ロジスティック回帰</a></li>
+<li class="chapter" data-level="7.3.5" data-path="機械学習.html"><a href="機械学習.html#モデルのあてはめ"><i class="fa fa-check"></i><b>7.3.5</b> モデルのあてはめ</a></li>
+<li class="chapter" data-level="7.3.6" data-path="機械学習.html"><a href="機械学習.html#欠損値の除去"><i class="fa fa-check"></i><b>7.3.6</b> 欠損値の除去</a></li>
+<li class="chapter" data-level="7.3.7" data-path="機械学習.html"><a href="機械学習.html#閾値しきいちの決定"><i class="fa fa-check"></i><b>7.3.7</b> 閾値（しきいち）の決定</a></li>
+<li class="chapter" data-level="7.3.8" data-path="機械学習.html"><a href="機械学習.html#モデルの評価"><i class="fa fa-check"></i><b>7.3.8</b> モデルの評価</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="機械学習.html"><a href="機械学習.html#決定木と応用手法"><i class="fa fa-check"></i><b>7.4</b> 決定木と応用手法</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="機械学習.html"><a href="機械学習.html#ランダムフォレスト"><i class="fa fa-check"></i><b>7.4.1</b> ランダムフォレスト</a></li>
+<li class="chapter" data-level="7.4.2" data-path="機械学習.html"><a href="機械学習.html#必要なパッケージ"><i class="fa fa-check"></i><b>7.4.2</b> 必要なパッケージ</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="機械学習.html"><a href="機械学習.html#今回使用するデータセット"><i class="fa fa-check"></i><b>7.5</b> 今回使用するデータセット</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="機械学習.html"><a href="機械学習.html#データの分割"><i class="fa fa-check"></i><b>7.5.1</b> データの分割</a></li>
+<li class="chapter" data-level="7.5.2" data-path="機械学習.html"><a href="機械学習.html#決定木のモデル作成"><i class="fa fa-check"></i><b>7.5.2</b> 決定木のモデル作成</a></li>
+<li class="chapter" data-level="7.5.3" data-path="機械学習.html"><a href="機械学習.html#決定木の可視化"><i class="fa fa-check"></i><b>7.5.3</b> 決定木の可視化</a></li>
+<li class="chapter" data-level="7.5.4" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-1"><i class="fa fa-check"></i><b>7.5.4</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.5.5" data-path="機械学習.html"><a href="機械学習.html#精度を見るための混合行列"><i class="fa fa-check"></i><b>7.5.5</b> 精度を見るための混合行列</a></li>
+<li class="chapter" data-level="7.5.6" data-path="機械学習.html"><a href="機械学習.html#ランダムフォレストのモデル作成"><i class="fa fa-check"></i><b>7.5.6</b> ランダムフォレストのモデル作成</a></li>
+<li class="chapter" data-level="7.5.7" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-2"><i class="fa fa-check"></i><b>7.5.7</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.5.8" data-path="機械学習.html"><a href="機械学習.html#精度を見るための混合行列-1"><i class="fa fa-check"></i><b>7.5.8</b> 精度を見るための混合行列</a></li>
+<li class="chapter" data-level="7.5.9" data-path="機械学習.html"><a href="機械学習.html#モデルの変数の重要度"><i class="fa fa-check"></i><b>7.5.9</b> モデルの変数の重要度</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="機械学習.html"><a href="機械学習.html#勾配ブースティングとは"><i class="fa fa-check"></i><b>7.6</b> 勾配ブースティングとは</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="機械学習.html"><a href="機械学習.html#フレームワーク"><i class="fa fa-check"></i><b>7.6.1</b> フレームワーク</a></li>
+<li class="chapter" data-level="7.6.2" data-path="機械学習.html"><a href="機械学習.html#今回使用するパッケージ-1"><i class="fa fa-check"></i><b>7.6.2</b> 今回使用するパッケージ</a></li>
+<li class="chapter" data-level="7.6.3" data-path="機械学習.html"><a href="機械学習.html#xgboostを使用する際の注意点"><i class="fa fa-check"></i><b>7.6.3</b> Xgboostを使用する際の注意点</a></li>
+<li class="chapter" data-level="7.6.4" data-path="機械学習.html"><a href="機械学習.html#label-encoding"><i class="fa fa-check"></i><b>7.6.4</b> Label encoding</a></li>
+<li class="chapter" data-level="7.6.5" data-path="機械学習.html"><a href="機械学習.html#データの分割-1"><i class="fa fa-check"></i><b>7.6.5</b> データの分割</a></li>
+<li class="chapter" data-level="7.6.6" data-path="機械学習.html"><a href="機械学習.html#データフレームの変換"><i class="fa fa-check"></i><b>7.6.6</b> データフレームの変換</a></li>
+<li class="chapter" data-level="7.6.7" data-path="機械学習.html"><a href="機械学習.html#パラメータ"><i class="fa fa-check"></i><b>7.6.7</b> パラメータ</a></li>
+<li class="chapter" data-level="7.6.8" data-path="機械学習.html"><a href="機械学習.html#モデルの作成"><i class="fa fa-check"></i><b>7.6.8</b> モデルの作成</a></li>
+<li class="chapter" data-level="7.6.9" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-3"><i class="fa fa-check"></i><b>7.6.9</b> モデルの評価</a></li>
+<li class="chapter" data-level="7.6.10" data-path="機械学習.html"><a href="機械学習.html#このパッケージを使用する際の問題点と解決策"><i class="fa fa-check"></i><b>7.6.10</b> このパッケージを使用する際の問題点と解決策</a></li>
+<li class="chapter" data-level="7.6.11" data-path="機械学習.html"><a href="機械学習.html#caretとは"><i class="fa fa-check"></i><b>7.6.11</b> caretとは</a></li>
+<li class="chapter" data-level="7.6.12" data-path="機械学習.html"><a href="機械学習.html#caretを使用したxgboostの使用法"><i class="fa fa-check"></i><b>7.6.12</b> caretを使用したXgboostの使用法</a></li>
+<li class="chapter" data-level="7.6.13" data-path="機械学習.html"><a href="機械学習.html#並行処理"><i class="fa fa-check"></i><b>7.6.13</b> 並行処理</a></li>
+<li class="chapter" data-level="7.6.14" data-path="機械学習.html"><a href="機械学習.html#パラメータ-1"><i class="fa fa-check"></i><b>7.6.14</b> パラメータ</a></li>
+<li class="chapter" data-level="7.6.15" data-path="機械学習.html"><a href="機械学習.html#モデルの作成-1"><i class="fa fa-check"></i><b>7.6.15</b> モデルの作成</a></li>
+<li class="chapter" data-level="7.6.16" data-path="機械学習.html"><a href="機械学習.html#モデルの評価-4"><i class="fa fa-check"></i><b>7.6.16</b> モデルの評価</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A minimal tidyverse and ML book for U!!!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidyverse" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> tidyverse</h1>
+<div id="tidyverseとは" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> tidyverseとは</h2>
+<p>　本サイトでは、tidyverseと呼ばれるパッケージ群を使用します。tidyverseは、さまざまな操作を統一的なインタフェースで直感的に行えるツール群を目指すものです。データの前処理、可視化、レポート作成が主な用途になります。その開発は、RStudio社の開発者を中心に進められています。</p>
+</div>
+<div id="インストールと読み込み" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> インストールと読み込み</h2>
+<p>インストール</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tidyverse.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<p>読み込み</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tidyverse.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="baserとtidyverse" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> baseRとtidyverse</h2>
+<p>　R言語にはデータ分析に必要な機能が標準で備わっています。R標準機能はbaseRと呼ばれ、tidyverseを使わずとも、データの加工や可視化を行うことができます。オンラインでヘルプを探すとき、baseRの構文を使用した解決策が見つかることがあります。「tidyverse」パッケージに慣れている場合は、「dplyr」や「tidyverse」などのキーワードを検索に追加すると便利です。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="パッケージのインストール.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dataの読み込み.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R4F.pdf", "R4F.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
